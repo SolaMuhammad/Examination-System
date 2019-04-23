@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> </title>
+</head>
+
+<body>
+    <div style="background-color:lightblue; widows: 500px;; height:500px" >
+        <img id ="backImg" style="width:100px; height: 100px;display: none; " src = "pic.gif">
+        
+    </div>
+    <script>
+        var xhr = new XMLHttpRequest();
+        var div_ = document.getElementsByTagName("div")[0];
+        div_.addEventListener("mouseover", function(){
+            xhr.open("get", "https://jsonplaceholder.typicode.com/users", true);
+            xhr.send();
+        });
+       
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 1){
+                document.getElementById("backImg").style.display = "block";
+            }
+            else if(xhr.readyState == 4){
+                document.getElementById("backImg").style.display = "none";
+                var users =  JSON.parse(xhr.response);
+                for(var i = 0 ; i < users.length ; ++i){
+                    div_.innerHTML += "Name : ";
+                    div_.innerHTML +=users[i].name;
+                    // div_.textContent += "\n";
+                    // div_.textContent += "Email : ";
+                    // div_.textContent += users[i].email;
+                }
+                
+                console.log(users);
+        }
+        }
+    </script>
+</body>
+
+</html>
